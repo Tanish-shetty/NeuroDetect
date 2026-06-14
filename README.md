@@ -1,395 +1,192 @@
-Cognitive Behavioral Intelligence System for Alzheimer’s & Pseudo-Dementia Detection
-A multimodal AI-driven platform focused on early detection and longitudinal monitoring of Alzheimer’s Disease and Pseudo-Dementia using:
-
-
-Behavioral telemetry from cognitive games
-
-
-Clinical assessment data
-
-
-MRI-based neuroimaging features
-
-
-The project emphasizes behavioral biomarkers such as hesitation, reaction time variability, correction patterns, and cognitive fluctuation collected through interactive neuropsychological mini-games.
-
-Project Vision
-Traditional cognitive assessment systems rely heavily on static scores and clinical observations. This project aims to build a more intelligent and dynamic system capable of analyzing:
-
-
-Cognitive behavior patterns
-
-
-Temporal progression
-
-
-Executive dysfunction
-
-
-Memory decline
-
-
-Attention instability
-
-
-Interaction-based digital biomarkers
-
-
-The long-term goal is to create a scalable platform for:
-
-
-Early screening
-
-
-Continuous monitoring
-
-
-Cognitive risk prediction
-
-
-Research on behavioral biomarkers
-
-
-
-Core Features
-Cognitive Assessment Games
-The platform includes gamified neuropsychological tasks such as:
-1. MMSE-Based Cognitive Assessment
-Measures:
-
-
-Orientation
-
-
-Attention
-
-
-Recall
-
-
-Language
-
-
-Calculation ability
-
-
-
-2. Grocery Memory Recall Game
-Measures:
-
-
-Immediate recall
-
-
-Delayed recall
-
-
-Episodic memory
-
-
-Recall consistency
-
-
-
-3. Boston Naming Test
-Measures:
-
-
-Semantic memory
-
-
-Language retrieval
-
-
-Naming ability
-
-
-
-4. N-Back Test
-Measures:
-
-
-Working memory
-
-
-Sustained attention
-
-
-Cognitive flexibility
-
-
-
-5. Trail Making Test
-Measures:
-
-
-Executive function
-
-
-Task switching
-
-
-Processing speed
-
-
-Visual attention
-
-
-
-Behavioral Telemetry Collection
-The system captures hidden behavioral biomarkers during gameplay, including:
-
-
-Reaction time
-
-
-Hesitation duration
-
-
-Correction frequency
-
-
-Cursor/touch movement
-
-
-Hover duration
-
-
-Path efficiency
-
-
-Movement entropy
-
-
-Confidence variability
-
-
-Error recovery behavior
-
-
-Attention drift
-
-
-These interaction patterns are used to generate cognitive biomarkers for machine learning models.
-
-Multimodal AI Pipeline
-The platform combines:
-ModalityPurposeBehavioral DataPrimary cognitive signalClinical DataSupporting contextMRI FeaturesStructural neurodegeneration evidence
-The fusion system aims to improve differentiation between:
-
-
-Alzheimer’s Disease
-
-
-Pseudo-Dementia
-
-
-Mild Cognitive Impairment (MCI)
-
-
-Healthy cognition
-
-
-
-Planned System Architecture
-React/Next.js Frontend        ↓Cognitive Games        ↓Behavioral Telemetry Collection        ↓FastAPI Backend        ↓PostgreSQL Database        ↓Feature Engineering Pipeline        ↓Fusion Model(Behavioral + Clinical + MRI)        ↓Prediction Engine        ↓Dashboard & Longitudinal Analytics
-
-Tech Stack
-Frontend
-
-
-React / Next.js
-
-
-Tailwind CSS
-
-
-Framer Motion
-
-
-
-Backend
-
-
-FastAPI
-
-
-Python
-
-
-
-Database
-
-
-PostgreSQL
-
-
-
-Machine Learning
-
-
-XGBoost
-
-
-LightGBM
-
-
-PyTorch
-
-
-
-Visualization & Analytics
-
-
-Recharts
-
-
-Custom behavioral visualizations
-
-
-Longitudinal cognitive analytics
-
-
-
-Machine Learning Approach
-Initial Phase
-The project will initially use:
-
-
-Engineered behavioral features
-
-
-Synthetic gameplay telemetry
-
-
-Real clinical & MRI datasets
-
-
-Models:
-
-
-XGBoost
-
-
-LightGBM
-
-
-Random Forest
-
-
-
-Advanced Phase
-Future improvements may include:
-
-
-LSTM-based temporal learning
-
-
-Transformer-based behavioral modeling
-
-
-Attention-based multimodal fusion
-
-
-Sequential telemetry analysis
-
-
-
-Datasets
-Planned Public Datasets
-
-
-ADNI (Alzheimer’s Disease Neuroimaging Initiative)
-
-
-OASIS
-
-
-
-Custom Data
-
-
-Synthetic behavioral gameplay data
-
-
-Real user telemetry collected through cognitive games
-
-
-
-Key Research Focus Areas
-
-
-Digital cognitive biomarkers
-
-
-Behavioral AI
-
-
-Pseudo-dementia differentiation
-
-
-Longitudinal cognitive monitoring
-
-
-Executive dysfunction analysis
-
-
-Human-computer interaction patterns
-
-
-Temporal cognitive progression
-
-
-
-Current Status
-🚧 Project currently in early development phase.
-Planned milestones:
-
-
- Frontend game development
-
-
- Behavioral telemetry engine
-
-
- Backend API development
-
-
- Synthetic behavioral dataset generation
-
-
- ML pipeline implementation
-
-
- Fusion model development
-
-
- Dashboard & analytics system
-
-
- Real-world user validation
-
-
-
-Future Scope
-
-
-Real-time cognitive monitoring
-
-
-Explainable AI for healthcare
-
-
-Adaptive cognitive assessments
-
-
-Personalized risk tracking
-
-
-Clinician dashboard integration
-
-
-Mobile deployment
-
-
-Remote neuropsychological screening
+# NeuroDetect — Backend
+
+**Early Alzheimer's & Pseudo-Dementia Detection API**
+
+---
+
+## Architecture Overview
+
+```
+Mobile App (React Native / Flutter)
+         │
+         ▼
+  ┌─────────────────────────────────────┐
+  │         FastAPI  (main.py)          │
+  │  ┌──────────┐  ┌──────────────────┐│
+  │  │ Patients │  │   5 Game Tables  ││
+  │  └──────────┘  └──────────────────┘│
+  │  ┌──────────────────────────────── ┐│
+  │  │  Scoring Engine (scoring.py)   ││
+  │  └────────────────────────────────┘│
+  │  ┌────────────────────────────────┐│
+  │  │  DL Model  (ml_model.py)       ││
+  │  │  Keras 6-feature → 5 classes  ││
+  │  └────────────────────────────────┘│
+  └─────────────────────────────────────┘
+         │
+         ▼
+   SQLite / PostgreSQL
+```
+
+---
+
+## Setup
+
+### 1. Install dependencies
+```bash
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### 2. Generate synthetic dataset & train the model
+```bash
+python ml_model.py
+```
+This will:
+- Generate `data/synthetic_dataset.csv` (10,000 samples, 5 classes)
+- Train and save `models/neurodetect_model.keras`
+- Save the feature scaler to `models/feature_scaler.joblib`
+- Print test accuracy (typically 90-95%)
+
+### 3. Start the API server
+```bash
+uvicorn main:app --reload --port 8000
+```
+
+Interactive API docs: **http://localhost:8000/docs**
+
+---
+
+## Data Flow
+
+```
+1. Patient fills form → POST /patients/
+   Outputs: patient_risk_score (0-100)
+
+2. Patient plays each game → POST /games/{game_name}
+   Outputs: game_risk_score (0-100) per game
+
+3. All 5 games done → POST /assess/{patient_id}
+   Input : [patient_score, mmse, memory, naming, nback, trail]
+   Output: DL model prediction → risk_level + recommendation
+```
+
+---
+
+## Risk Score Design
+
+Each domain produces a **0-100 risk score** (higher = more risk):
+
+| Domain          | Weight | Key Signals                                    |
+|-----------------|--------|------------------------------------------------|
+| Patient Data    | 15%    | Age, education, BP, glucose, depression, sleep |
+| MMSE (Game 1)   | 20%    | MMSE score, accuracy, reaction time            |
+| Memory (Game 2) | 20%    | Recall accuracy, decay rate, intrusion errors  |
+| Naming (Game 3) | 15%    | Naming accuracy, latency, cue dependency       |
+| N-Back (Game 4) | 15%    | Accuracy, false positives, fatigue progression |
+| Trail (Game 5)  | 15%    | Completion time, path efficiency, errors       |
+
+---
+
+## Classification (5 Risk Levels)
+
+| Class | Level                          | Composite Score |
+|-------|--------------------------------|-----------------|
+|   0   | Normal                         | 0 – 20          |
+|   1   | Subjective Cognitive Decline   | 20 – 35         |
+|   2   | Mild Cognitive Impairment      | 35 – 50         |
+|   3   | Moderate Alzheimer's Risk      | 50 – 65         |
+|   4   | Severe / High Alzheimer's Risk | 65 – 100        |
+
+---
+
+## API Endpoints
+
+| Method | Endpoint               | Description                                |
+|--------|------------------------|--------------------------------------------|
+| POST   | `/patients/`           | Register patient + compute risk score      |
+| GET    | `/patients/{id}`       | Fetch patient profile                      |
+| POST   | `/games/mmse`          | Submit MMSE game results                   |
+| POST   | `/games/memory`        | Submit Memory Recall game results          |
+| POST   | `/games/naming`        | Submit Boston Naming Test results          |
+| POST   | `/games/nback`         | Submit N-Back Recall results               |
+| POST   | `/games/trail`         | Submit Trail Making Test results           |
+| POST   | `/assess/{patient_id}` | Run DL model → final assessment            |
+| GET    | `/assess/{patient_id}` | Fetch saved assessment                     |
+| GET    | `/health`              | Health check                               |
+| GET    | `/model/status`        | Check if DL model is trained               |
+| POST   | `/model/train`         | Retrain model (background task)            |
+
+---
+
+## Model Architecture
+
+```
+Input (6 features, normalised 0-1)
+   │
+Dense(128) → BatchNorm → ReLU → Dropout(0.3)
+   │
+Dense(64)  → BatchNorm → ReLU → Dropout(0.25)
+   │
+Dense(32)  → BatchNorm → ReLU → Dropout(0.2)
+   │
+Dense(16)  → ReLU
+   │
+Dense(5)   → Softmax
+```
+
+- Loss     : Sparse Categorical Cross-Entropy
+- Optimiser: Adam (lr=1e-3, ReduceLROnPlateau)
+- Callbacks: EarlyStopping, ModelCheckpoint
+
+---
+
+## Synthetic Dataset
+
+Generated by `dataset_generator.py`:
+
+| Class | Name                          | Samples | Avg Composite Score |
+|-------|-------------------------------|---------|---------------------|
+| 0     | Normal                        | 3,000   | ~18                 |
+| 1     | Subjective Cognitive Decline  | 2,500   | ~27                 |
+| 2     | Mild Cognitive Impairment     | 2,000   | ~46                 |
+| 3     | Moderate Alzheimer's Risk     | 1,500   | ~63                 |
+| 4     | Severe / High Alzheimer's Risk| 1,000   | ~79                 |
+
+Features are sampled from multivariate normal distributions with realistic
+inter-game correlations (ρ ≈ 0.45), then clipped to [0, 100].
+
+---
+
+## File Structure
+
+```
+neurodetect_backend/
+├── main.py               FastAPI app + all routes
+├── models.py             SQLAlchemy ORM models
+├── schemas.py            Pydantic request/response schemas
+├── scoring.py            Risk scoring for patient + 5 games
+├── ml_model.py           DL model (build / train / predict)
+├── dataset_generator.py  Synthetic training data generator
+├── database.py           DB connection & session
+├── requirements.txt
+├── README.md
+├── data/
+│   ├── synthetic_dataset.csv
+│   └── synthetic_dataset_raw.csv
+├── models/
+│   ├── neurodetect_model.keras
+│   └── feature_scaler.joblib
+└── neurodetect.db        SQLite database (auto-created)
+```
+
+---
+
+## Switch to PostgreSQL
+
+In `database.py` change:
+```python
+DATABASE_URL = "postgresql://user:password@localhost:5432/neurodetect"
+```
+And uncomment `psycopg2-binary` in `requirements.txt`.
