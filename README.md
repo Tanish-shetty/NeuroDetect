@@ -1,192 +1,292 @@
-# NeuroDetect — Backend
+# NeuroDetect
 
-**Early Alzheimer's & Pseudo-Dementia Detection API**
+### AI-Powered Behavioral Intelligence System for Pseudo-Dementia & Cognitive Decline Detection
 
----
+NeuroDetect is a behavioral AI platform designed for the early detection and monitoring of **Pseudo-Dementia**, **Mild Cognitive Impairment (MCI)**, and other cognitive decline conditions through digital behavioral biomarkers.
 
-## Architecture Overview
+Unlike traditional cognitive assessment systems that rely primarily on test scores, NeuroDetect focuses on analyzing **how users perform cognitive tasks**, capturing subtle interaction patterns such as hesitation, reaction time variability, correction behavior, attention drift, and cognitive fluctuations.
 
-```
-Mobile App (React Native / Flutter)
-         │
-         ▼
-  ┌─────────────────────────────────────┐
-  │         FastAPI  (main.py)          │
-  │  ┌──────────┐  ┌──────────────────┐│
-  │  │ Patients │  │   5 Game Tables  ││
-  │  └──────────┘  └──────────────────┘│
-  │  ┌──────────────────────────────── ┐│
-  │  │  Scoring Engine (scoring.py)   ││
-  │  └────────────────────────────────┘│
-  │  ┌────────────────────────────────┐│
-  │  │  DL Model  (ml_model.py)       ││
-  │  │  Keras 6-feature → 5 classes  ││
-  │  └────────────────────────────────┘│
-  └─────────────────────────────────────┘
-         │
-         ▼
-   SQLite / PostgreSQL
-```
+The platform combines cognitive assessment games, behavioral telemetry, clinical information, and machine learning to generate cognitive risk insights and support longitudinal monitoring.
 
 ---
 
-## Setup
+## Key Features
 
-### 1. Install dependencies
+### Cognitive Assessment Suite
+
+The platform includes gamified neuropsychological assessments:
+
+* MMSE-Based Cognitive Assessment
+* Grocery Memory Recall Game
+* Boston Naming Test
+* N-Back Working Memory Test
+* Trail Making Test
+
+### Behavioral Telemetry Engine
+
+Captures interaction-based cognitive biomarkers such as:
+
+* Reaction Time
+* Hesitation Duration
+* Correction Frequency
+* Error Recovery Behavior
+* Attention Drift
+* Cursor/Touch Movement Patterns
+* Path Efficiency
+* Confidence Variability
+* Cognitive Consistency Across Tasks
+
+### AI-Powered Risk Assessment
+
+Supports differentiation between:
+
+* Healthy Cognition
+* Subjective Cognitive Decline
+* Mild Cognitive Impairment (MCI)
+* Pseudo-Dementia
+* Alzheimer's Disease Risk
+
+---
+
+## System Architecture
+
+```text
+Frontend (React / Next.js)
+        ↓
+Cognitive Assessment Games
+        ↓
+Behavioral Telemetry Collection
+        ↓
+FastAPI Backend
+        ↓
+PostgreSQL / SQLite
+        ↓
+Feature Engineering Pipeline
+        ↓
+Machine Learning Models
+        ↓
+Risk Prediction Engine
+        ↓
+Dashboard & Longitudinal Analytics
+```
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React.js / Next.js
+* Tailwind CSS
+* Framer Motion
+
+### Backend
+
+* FastAPI
+* Python
+
+### Database
+
+* PostgreSQL
+* SQLite
+
+### Machine Learning
+
+* XGBoost
+* LightGBM
+* Random Forest
+* TensorFlow / PyTorch
+
+### Analytics & Visualization
+
+* Recharts
+* Custom Behavioral Analytics Dashboard
+
+---
+
+## Risk Assessment Framework
+
+Each assessment contributes to a composite cognitive risk score:
+
+| Domain                | Weight |
+| --------------------- | ------ |
+| Patient Clinical Data | 15%    |
+| MMSE Assessment       | 20%    |
+| Memory Recall         | 20%    |
+| Boston Naming Test    | 15%    |
+| N-Back Test           | 15%    |
+| Trail Making Test     | 15%    |
+
+### Risk Categories
+
+| Level | Classification               |
+| ----- | ---------------------------- |
+| 0     | Normal                       |
+| 1     | Subjective Cognitive Decline |
+| 2     | Mild Cognitive Impairment    |
+| 3     | Moderate Cognitive Risk      |
+| 4     | High Cognitive Risk          |
+
+---
+
+## Backend API
+
+| Method | Endpoint               |
+| ------ | ---------------------- |
+| POST   | `/patients/`           |
+| GET    | `/patients/{id}`       |
+| POST   | `/games/mmse`          |
+| POST   | `/games/memory`        |
+| POST   | `/games/naming`        |
+| POST   | `/games/nback`         |
+| POST   | `/games/trail`         |
+| POST   | `/assess/{patient_id}` |
+| GET    | `/assess/{patient_id}` |
+| GET    | `/health`              |
+| GET    | `/model/status`        |
+| POST   | `/model/train`         |
+
+### API Documentation
+
+```bash
+http://localhost:8000/docs
+```
+
+---
+
+## Machine Learning Pipeline
+
+### Current Phase
+
+* Behavioral feature engineering
+* Synthetic telemetry generation
+* Cognitive risk scoring
+* Multi-class cognitive risk prediction
+
+### Future Enhancements
+
+* Sequential behavioral analysis
+* LSTM-based temporal modeling
+* Transformer-based behavioral learning
+* Multimodal fusion models
+* Explainable AI for healthcare
+
+---
+
+## Datasets
+
+### Public Datasets
+
+* ADNI (Alzheimer's Disease Neuroimaging Initiative)
+* OASIS
+
+### Custom Data
+
+* Synthetic behavioral gameplay telemetry
+* Real-world user interaction data
+* Longitudinal cognitive assessment records
+
+---
+
+## Local Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd neurodetect
+```
+
+### 2. Create Virtual Environment
+
 ```bash
 python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
+```
+
+**Linux / macOS**
+
+```bash
+source venv/bin/activate
+```
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 2. Generate synthetic dataset & train the model
+### 4. Train Model & Generate Dataset
+
 ```bash
 python ml_model.py
 ```
-This will:
-- Generate `data/synthetic_dataset.csv` (10,000 samples, 5 classes)
-- Train and save `models/neurodetect_model.keras`
-- Save the feature scaler to `models/feature_scaler.joblib`
-- Print test accuracy (typically 90-95%)
 
-### 3. Start the API server
+This will:
+
+* Generate synthetic datasets
+* Train the prediction model
+* Save trained model artifacts
+
+### 5. Start the API Server
+
 ```bash
 uvicorn main:app --reload --port 8000
 ```
 
-Interactive API docs: **http://localhost:8000/docs**
+---
+
+## Research Focus
+
+### Primary Focus
+
+* Pseudo-Dementia Detection
+* Behavioral Biomarker Discovery
+* Cognitive Fluctuation Analysis
+* Executive Dysfunction Assessment
+* Human-Computer Interaction Patterns
+
+### Secondary Focus
+
+* Alzheimer's Disease Risk Assessment
+* Mild Cognitive Impairment Detection
+* Longitudinal Cognitive Monitoring
+* Digital Cognitive Health Analytics
 
 ---
 
-## Data Flow
+## Project Roadmap
 
-```
-1. Patient fills form → POST /patients/
-   Outputs: patient_risk_score (0-100)
-
-2. Patient plays each game → POST /games/{game_name}
-   Outputs: game_risk_score (0-100) per game
-
-3. All 5 games done → POST /assess/{patient_id}
-   Input : [patient_score, mmse, memory, naming, nback, trail]
-   Output: DL model prediction → risk_level + recommendation
-```
+* Cognitive Game Development
+* Behavioral Telemetry Engine
+* Backend API Development
+* Synthetic Dataset Expansion
+* Machine Learning Pipeline Optimization
+* Longitudinal Analytics Dashboard
+* Clinical Validation & User Studies
 
 ---
 
-## Risk Score Design
+## Future Scope
 
-Each domain produces a **0-100 risk score** (higher = more risk):
-
-| Domain          | Weight | Key Signals                                    |
-|-----------------|--------|------------------------------------------------|
-| Patient Data    | 15%    | Age, education, BP, glucose, depression, sleep |
-| MMSE (Game 1)   | 20%    | MMSE score, accuracy, reaction time            |
-| Memory (Game 2) | 20%    | Recall accuracy, decay rate, intrusion errors  |
-| Naming (Game 3) | 15%    | Naming accuracy, latency, cue dependency       |
-| N-Back (Game 4) | 15%    | Accuracy, false positives, fatigue progression |
-| Trail (Game 5)  | 15%    | Completion time, path efficiency, errors       |
+* Real-Time Cognitive Monitoring
+* Personalized Cognitive Risk Tracking
+* Explainable AI for Healthcare
+* Remote Neuropsychological Screening
+* Clinician Dashboard Integration
+* Mobile Application Deployment
 
 ---
 
-## Classification (5 Risk Levels)
+## Disclaimer
 
-| Class | Level                          | Composite Score |
-|-------|--------------------------------|-----------------|
-|   0   | Normal                         | 0 – 20          |
-|   1   | Subjective Cognitive Decline   | 20 – 35         |
-|   2   | Mild Cognitive Impairment      | 35 – 50         |
-|   3   | Moderate Alzheimer's Risk      | 50 – 65         |
-|   4   | Severe / High Alzheimer's Risk | 65 – 100        |
+NeuroDetect is a research and educational project intended to explore behavioral biomarkers and AI-based cognitive assessment. It is **not a medical diagnostic tool** and should not be used as a substitute for professional clinical evaluation.
 
 ---
 
-## API Endpoints
-
-| Method | Endpoint               | Description                                |
-|--------|------------------------|--------------------------------------------|
-| POST   | `/patients/`           | Register patient + compute risk score      |
-| GET    | `/patients/{id}`       | Fetch patient profile                      |
-| POST   | `/games/mmse`          | Submit MMSE game results                   |
-| POST   | `/games/memory`        | Submit Memory Recall game results          |
-| POST   | `/games/naming`        | Submit Boston Naming Test results          |
-| POST   | `/games/nback`         | Submit N-Back Recall results               |
-| POST   | `/games/trail`         | Submit Trail Making Test results           |
-| POST   | `/assess/{patient_id}` | Run DL model → final assessment            |
-| GET    | `/assess/{patient_id}` | Fetch saved assessment                     |
-| GET    | `/health`              | Health check                               |
-| GET    | `/model/status`        | Check if DL model is trained               |
-| POST   | `/model/train`         | Retrain model (background task)            |
-
----
-
-## Model Architecture
-
-```
-Input (6 features, normalised 0-1)
-   │
-Dense(128) → BatchNorm → ReLU → Dropout(0.3)
-   │
-Dense(64)  → BatchNorm → ReLU → Dropout(0.25)
-   │
-Dense(32)  → BatchNorm → ReLU → Dropout(0.2)
-   │
-Dense(16)  → ReLU
-   │
-Dense(5)   → Softmax
-```
-
-- Loss     : Sparse Categorical Cross-Entropy
-- Optimiser: Adam (lr=1e-3, ReduceLROnPlateau)
-- Callbacks: EarlyStopping, ModelCheckpoint
-
----
-
-## Synthetic Dataset
-
-Generated by `dataset_generator.py`:
-
-| Class | Name                          | Samples | Avg Composite Score |
-|-------|-------------------------------|---------|---------------------|
-| 0     | Normal                        | 3,000   | ~18                 |
-| 1     | Subjective Cognitive Decline  | 2,500   | ~27                 |
-| 2     | Mild Cognitive Impairment     | 2,000   | ~46                 |
-| 3     | Moderate Alzheimer's Risk     | 1,500   | ~63                 |
-| 4     | Severe / High Alzheimer's Risk| 1,000   | ~79                 |
-
-Features are sampled from multivariate normal distributions with realistic
-inter-game correlations (ρ ≈ 0.45), then clipped to [0, 100].
-
----
-
-## File Structure
-
-```
-neurodetect_backend/
-├── main.py               FastAPI app + all routes
-├── models.py             SQLAlchemy ORM models
-├── schemas.py            Pydantic request/response schemas
-├── scoring.py            Risk scoring for patient + 5 games
-├── ml_model.py           DL model (build / train / predict)
-├── dataset_generator.py  Synthetic training data generator
-├── database.py           DB connection & session
-├── requirements.txt
-├── README.md
-├── data/
-│   ├── synthetic_dataset.csv
-│   └── synthetic_dataset_raw.csv
-├── models/
-│   ├── neurodetect_model.keras
-│   └── feature_scaler.joblib
-└── neurodetect.db        SQLite database (auto-created)
-```
-
----
-
-## Switch to PostgreSQL
-
-In `database.py` change:
-```python
-DATABASE_URL = "postgresql://user:password@localhost:5432/neurodetect"
-```
-And uncomment `psycopg2-binary` in `requirements.txt`.
+**Building the future of behavioral AI for cognitive health and Pseudo-Dementia detection.**
